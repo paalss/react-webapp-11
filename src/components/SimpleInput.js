@@ -7,6 +7,11 @@ const SimpleInput = (props) => {
   const enteredNameIsValid = enteredName.trim() !== "";
   const showError = !enteredNameIsValid && enteredNameTouched;
 
+  let formIsValid = false;
+  if (enteredNameIsValid) {
+    formIsValid = true;
+  }
+
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
   };
@@ -20,15 +25,13 @@ const SimpleInput = (props) => {
 
     setEnteredNameTouched(true);
     if (!enteredNameIsValid) {
-      return
+      return;
     }
-    setEnteredName('')
-    setEnteredNameTouched(false)
+    setEnteredName("");
+    setEnteredNameTouched(false);
   };
 
-  const nameInputClasses = showError
-    ? "form-control invalid"
-    : "form-control";
+  const nameInputClasses = showError ? "form-control invalid" : "form-control";
   return (
     <form onSubmit={formSubmissionHandler}>
       <div className={nameInputClasses}>
@@ -42,7 +45,7 @@ const SimpleInput = (props) => {
         {showError && <p className="error-text">fyll ut navn</p>}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
