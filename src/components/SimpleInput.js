@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 const nameReducer = (state, action) => {
   if (action.type === "SET_ENTERED_INPUT") {
-    return { ...state, enteredName: action.value };
+    return { ...state, enteredInput: action.value };
   }
   if (action.type === "SET_TOUCHED") {
     return { ...state, touched: action.value };
@@ -11,7 +11,7 @@ const nameReducer = (state, action) => {
 
 const emailReducer = (state, action) => {
   if (action.type === "SET_ENTERED_INPUT") {
-    return { ...state, enteredEmail: action.value };
+    return { ...state, enteredInput: action.value };
   }
   if (action.type === "SET_TOUCHED") {
     return { ...state, touched: action.value };
@@ -20,24 +20,21 @@ const emailReducer = (state, action) => {
 
 const SimpleInput = (props) => {
   const [nameState, dispatchName] = useReducer(nameReducer, {
-    enteredName: "",
+    enteredInput: "",
     touched: false,
   });
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
-    enteredEmail: "",
+    enteredInput: "",
     touched: false,
   });
 
-  console.log("nameState: ", nameState);
-  console.log("emailState: ", emailState);
-
-  const enteredNameIsValid = nameState.enteredName.trim() !== "";
+  const enteredNameIsValid = nameState.enteredInput.trim() !== "";
 
   function validateEmail(mail) {
     return /(.+)@(.+){2,}\.(.+){2,}/.test(mail);
   }
-  const enteredEmailIsValid = validateEmail(emailState.enteredEmail);
+  const enteredEmailIsValid = validateEmail(emailState.enteredInput);
 
   const showNameError = !enteredNameIsValid && nameState.touched;
   const showEmailError = !enteredEmailIsValid && emailState.touched;
@@ -77,6 +74,8 @@ const SimpleInput = (props) => {
     dispatchEmail({ type: "SET_ENTERED_INPUT", value: "" });
     dispatchName({ type: "SET_TOUCHED", value: false });
     dispatchEmail({ type: "SET_TOUCHED", value: false });
+
+    console.log('submitting...');
   };
 
   const nameInputClasses = showNameError
@@ -95,7 +94,7 @@ const SimpleInput = (props) => {
           id="name"
           onBlur={nameInputBlur}
           onChange={nameInputChangeHandler}
-          value={nameState.enteredName}
+          value={nameState.enteredInput}
         />
         {showNameError && <p className="error-text">name cannot be empty</p>}
       </div>
@@ -106,7 +105,7 @@ const SimpleInput = (props) => {
           id="email"
           onBlur={emailInputBlur}
           onChange={emailInputChangeHandler}
-          value={emailState.enteredEmail}
+          value={emailState.enteredInput}
           placeholder="a@aa.aa"
         />
         {showEmailError && <p className="error-text">email must be valid</p>}
