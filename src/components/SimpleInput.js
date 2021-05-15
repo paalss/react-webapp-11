@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
 const nameReducer = (state, action) => {
-  if (action.type === "SET_ENTERED_NAME") {
+  if (action.type === "SET_ENTERED_INPUT") {
     return { ...state, enteredName: action.value };
   }
   if (action.type === "SET_TOUCHED") {
@@ -10,7 +10,7 @@ const nameReducer = (state, action) => {
 };
 
 const emailReducer = (state, action) => {
-  if (action.type === "SET_ENTERED_EMAIL") {
+  if (action.type === "SET_ENTERED_INPUT") {
     return { ...state, enteredEmail: action.value };
   }
   if (action.type === "SET_TOUCHED") {
@@ -29,10 +29,9 @@ const SimpleInput = (props) => {
     touched: false,
   });
 
-
   console.log("nameState: ", nameState);
   console.log("emailState: ", emailState);
-  
+
   const enteredNameIsValid = nameState.enteredName.trim() !== "";
 
   function validateEmail(mail) {
@@ -49,11 +48,11 @@ const SimpleInput = (props) => {
   }
 
   const nameInputChangeHandler = (event) => {
-    dispatchName({ type: "SET_ENTERED_NAME", value: event.target.value });
+    dispatchName({ type: "SET_ENTERED_INPUT", value: event.target.value });
   };
 
   const emailInputChangeHandler = (event) => {
-    dispatchEmail({ type: "SET_ENTERED_EMAIL", value: event.target.value });
+    dispatchEmail({ type: "SET_ENTERED_INPUT", value: event.target.value });
   };
 
   const nameInputBlur = () => {
@@ -69,12 +68,13 @@ const SimpleInput = (props) => {
 
     dispatchName({ type: "SET_TOUCHED", value: true });
     dispatchEmail({ type: "SET_TOUCHED", value: true });
+    
     if (!formIsValid) {
       return;
     }
-    console.log("valid!");
-    dispatchName({ type: "SET_ENTERED_NAME", value: "" });
-    dispatchEmail({ type: "SET_ENTERED_EMAIL", value: "" });
+
+    dispatchName({ type: "SET_ENTERED_INPUT", value: "" });
+    dispatchEmail({ type: "SET_ENTERED_INPUT", value: "" });
     dispatchName({ type: "SET_TOUCHED", value: false });
     dispatchEmail({ type: "SET_TOUCHED", value: false });
   };
@@ -82,7 +82,7 @@ const SimpleInput = (props) => {
   const nameInputClasses = showNameError
     ? "form-control invalid"
     : "form-control";
-  const emailInputClasses = showNameError
+  const emailInputClasses = showEmailError
     ? "form-control invalid"
     : "form-control";
 
