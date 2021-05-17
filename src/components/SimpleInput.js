@@ -16,9 +16,8 @@ const SimpleInput = (props) => {
     showError: showEmailError,
     inputChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
-    reset: resetEmailInput
-  } = useInput(value=>validateEmail(value));
-
+    reset: resetEmailInput,
+  } = useInput((value) => validateEmail(value));
 
   function validateEmail(mail) {
     return /(.+)@(.+){2,}\.(.+){2,}/.test(mail);
@@ -34,8 +33,7 @@ const SimpleInput = (props) => {
     }
 
     resetNameInput();
-
-    resetEmailInput()
+    resetEmailInput();
 
     console.log("submitting...");
   };
@@ -43,6 +41,7 @@ const SimpleInput = (props) => {
   const nameInputClasses = showNameError
     ? "form-control invalid"
     : "form-control";
+
   const emailInputClasses = showEmailError
     ? "form-control invalid"
     : "form-control";
