@@ -1,76 +1,54 @@
-import { useReducer } from "react";
-
-const nameReducer = (state, action) => {
-  if (action.type === "SET_ENTERED_INPUT") {
-    return { ...state, enteredInput: action.value };
-  }
-  if (action.type === "SET_TOUCHED") {
-    return { ...state, touched: action.value };
-  }
-};
-
-const emailReducer = (state, action) => {
-  if (action.type === "SET_ENTERED_INPUT") {
-    return { ...state, enteredInput: action.value };
-  }
-  if (action.type === "SET_TOUCHED") {
-    return { ...state, touched: action.value };
-  }
-};
+import { useState } from "react";
 
 const SimpleInput = (props) => {
-  const [nameState, dispatchName] = useReducer(nameReducer, {
-    enteredInput: "",
-    touched: false,
-  });
+  const [enteredName, setEnteredName] = useState('')
+  const [enteredNameTouched, setEnteredNameTouched] = useState('')
 
-  const [emailState, dispatchEmail] = useReducer(emailReducer, {
-    enteredInput: "",
-    touched: false,
-  });
+  const [enteredEmail, setEnteredEmail] = useState('')
+  const [enteredEmailTouched, setEnteredEmailTouched] = useState('')
 
-  const enteredNameIsValid = nameState.enteredInput.trim() !== "";
+  const enteredNameIsValid = enteredName.trim() !== "";
 
   function validateEmail(mail) {
     return /(.+)@(.+){2,}\.(.+){2,}/.test(mail);
   }
-  const enteredEmailIsValid = validateEmail(emailState.enteredInput);
+  const enteredEmailIsValid = validateEmail(enteredEmail);
 
-  const showNameError = !enteredNameIsValid && nameState.touched;
-  const showEmailError = !enteredEmailIsValid && emailState.touched;
+  const showNameError = !enteredNameIsValid && enteredNameTouched;
+  const showEmailError = !enteredEmailIsValid && enteredEmailTouched;
 
   const formIsValid = enteredNameIsValid && enteredEmailIsValid;
 
   const nameInputChangeHandler = (event) => {
-    dispatchName({ type: "SET_ENTERED_INPUT", value: event.target.value });
+    setEnteredName(event.target.value)
   };
 
   const emailInputChangeHandler = (event) => {
-    dispatchEmail({ type: "SET_ENTERED_INPUT", value: event.target.value });
+    setEnteredEmail(event.target.value);
   };
 
   const nameInputBlur = () => {
-    dispatchName({ type: "SET_TOUCHED", value: true });
+    setEnteredNameTouched(true);
   };
 
   const emailInputBlur = () => {
-    dispatchEmail({ type: "SET_TOUCHED", value: true });
+    setEnteredEmailTouched(true);
   };
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
 
-    dispatchName({ type: "SET_TOUCHED", value: true });
-    dispatchEmail({ type: "SET_TOUCHED", value: true });
+    setEnteredNameTouched(true);
+    setEnteredEmailTouched(true);
 
     if (!formIsValid) {
       return;
     }
 
-    dispatchName({ type: "SET_ENTERED_INPUT", value: "" });
-    dispatchEmail({ type: "SET_ENTERED_INPUT", value: "" });
-    dispatchName({ type: "SET_TOUCHED", value: false });
-    dispatchEmail({ type: "SET_TOUCHED", value: false });
+    setEnteredName("");
+    setEnteredEmail("");
+    setEnteredNameTouched(false);
+    setEnteredEmailTouched(false);
 
     console.log("submitting...");
   };
@@ -91,7 +69,7 @@ const SimpleInput = (props) => {
           id="name"
           onBlur={nameInputBlur}
           onChange={nameInputChangeHandler}
-          value={nameState.enteredInput}
+          value={enteredName}
         />
         {showNameError && <p className="error-text">name cannot be empty</p>}
       </div>
@@ -102,7 +80,7 @@ const SimpleInput = (props) => {
           id="email"
           onBlur={emailInputBlur}
           onChange={emailInputChangeHandler}
-          value={emailState.enteredInput}
+          value={enteredEmail}
           placeholder="a@aa.aa"
         />
         {showEmailError && <p className="error-text">email must be valid</p>}
