@@ -16,8 +16,8 @@ git checkout 6cc1366
 ```
 ![app](assets/app-2021-05-14-171745.png)
 ![app](assets/app-2021-05-14-171900.png)
-SimpleInput
 
+<!--
 ## Challenge:
 Apply what we've learned. SimpleInput validerer nå hver input ved hjelp av generisk custom hook. Gjør nå det samme på BasicForm, som bare rendrer en HTML-form på dette punktet.
 
@@ -29,3 +29,4 @@ src/components/BasicForm.js
 
 ![app](assets/app-2021-05-17-133214.png)
 BasicForm
+-->
