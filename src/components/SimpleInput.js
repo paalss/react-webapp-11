@@ -39,10 +39,7 @@ const SimpleInput = (props) => {
   const showNameError = !enteredNameIsValid && nameState.touched;
   const showEmailError = !enteredEmailIsValid && emailState.touched;
 
-  let formIsValid = false;
-  if (enteredNameIsValid && enteredEmailIsValid) {
-    formIsValid = true;
-  }
+  const formIsValid = enteredNameIsValid && enteredEmailIsValid;
 
   const nameInputChangeHandler = (event) => {
     dispatchName({ type: "SET_ENTERED_INPUT", value: event.target.value });
@@ -65,7 +62,7 @@ const SimpleInput = (props) => {
 
     dispatchName({ type: "SET_TOUCHED", value: true });
     dispatchEmail({ type: "SET_TOUCHED", value: true });
-    
+
     if (!formIsValid) {
       return;
     }
@@ -75,7 +72,7 @@ const SimpleInput = (props) => {
     dispatchName({ type: "SET_TOUCHED", value: false });
     dispatchEmail({ type: "SET_TOUCHED", value: false });
 
-    console.log('submitting...');
+    console.log("submitting...");
   };
 
   const nameInputClasses = showNameError
