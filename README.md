@@ -21,5 +21,11 @@ SimpleInput
 ## Challenge:
 Apply what we've learned. SimpleInput validerer nå hver input ved hjelp av generisk custom hook. Gjør nå det samme på BasicForm, som bare rendrer en HTML-form på dette punktet.
 
+**Se startkoden**
+```
+git checkout 0c40aa8
+```
+src/components/BasicForm.js
+
 ![app](assets/app-2021-05-17-133214.png)
 BasicForm
