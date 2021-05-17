@@ -19,6 +19,7 @@ const useInput = (validateValue) => {
     setEnteredInput("");
     setIsTouched(false);
   };
+  
   return {
     input: enteredInput,
     isValid: inputIsValid,
