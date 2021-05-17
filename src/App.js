@@ -1,3 +1,4 @@
+/*App.js*/
 import SimpleInput from './components/SimpleInput';
 
 function App() {
