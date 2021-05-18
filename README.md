@@ -1,8 +1,11 @@
 # react-webapp-11
 *Section 16: Working with Forms & User Input*
 
+- Input og form validering
+- Feedback til bruker
+
 ## Assignment 5:
-Lag en email field og valider den slik som name field (hente entered value, valider) og form kan submittes om begge er valid
+Lag en email field og valider den slik som name field (hente entered value, finn ut om oppfyller valid epost). Form kan submittes om begge er valid
 
 **Se koden rett før oppgavestart:**
 ```
@@ -30,3 +33,5 @@ src/components/BasicForm.js
 ![app](assets/app-2021-05-17-133214.png)
 BasicForm
 -->
+
+Resten er fulgt etter videoer
