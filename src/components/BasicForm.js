@@ -1,5 +1,8 @@
 import useInput from "../hooks/use-input";
 
+const isNotEmpty = (value) => value.trim() !== "";
+const validateEmail = (mail) => /(.+)@(.+){2,}\.(.+){2,}/.test(mail);
+
 const BasicForm = (props) => {
   const {
     input: enteredFName,
@@ -8,7 +11,7 @@ const BasicForm = (props) => {
     inputChangeHandler: fNameChangeHandler,
     inputBlurHandler: fNameBlurHandler,
     reset: resetFName,
-  } = useInput((value) => value !== "");
+  } = useInput(isNotEmpty);
 
   const {
     input: enteredLName,
@@ -17,7 +20,7 @@ const BasicForm = (props) => {
     inputChangeHandler: lNameChangeHandler,
     inputBlurHandler: lNameBlurHandler,
     reset: resetLName,
-  } = useInput((value) => value !== "");
+  } = useInput(isNotEmpty);
 
   const {
     input: enteredEmail,
@@ -28,27 +31,21 @@ const BasicForm = (props) => {
     reset: resetEmail,
   } = useInput((value) => validateEmail(value));
 
-  function validateEmail(mail) {
-    return /(.+)@(.+){2,}\.(.+){2,}/.test(mail);
-  }
-
   const formIsValid = fNameIsValid && lNameIsValid && emailIsValid;
 
-  const fNameInputClass = !showFNameError
-    ? "form-control"
-    : "form-control invalid";
-
-  const lNameInputClass = !showLNameError
-    ? "form-control"
-    : "form-control invalid";
-
-  const emailInputClass = !showEmailError
-    ? "form-control"
-    : "form-control invalid";
+  const fNameClass = !showFNameError ? "form-control" : "form-control invalid";
+  const lNameClass = !showLNameError ? "form-control" : "form-control invalid";
+  const emailClass = !showEmailError ? "form-control" : "form-control invalid";
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    if (!formIsValid) {
+      return;
+    }
+
     console.log("submitting...");
+    console.log(enteredFName, enteredLName, enteredEmail);
     resetFName();
     resetLName();
     resetEmail();
@@ -57,7 +54,7 @@ const BasicForm = (props) => {
   return (
     <form onSubmit={submitHandler}>
       <div className="control-group">
-        <div className={fNameInputClass}>
+        <div className={fNameClass}>
           <label htmlFor="first-name">First Name</label>
           <input
             type="text"
@@ -70,7 +67,7 @@ const BasicForm = (props) => {
             <p className="error-text">Please enter first name</p>
           )}
         </div>
-        <div className={lNameInputClass}>
+        <div className={lNameClass}>
           <label htmlFor="last-name">Last Name</label>
           <input
             type="text"
@@ -84,7 +81,7 @@ const BasicForm = (props) => {
           )}
         </div>
       </div>
-      <div className={emailInputClass}>
+      <div className={emailClass}>
         <label htmlFor="name">E-Mail Address</label>
         <input
           type="email"
